@@ -45,7 +45,7 @@ jobs:
             set -e  # 에러 발생 시 즉시 스크립트 중단
 
             echo "Navigating to project directory..."
-            cd /home/bitnami/hira2 || { echo "Failed to change directory"; exit 1; }
+            cd /home/ubuntu/ezen-mini-frontend || { echo "Failed to change directory"; exit 1; }
 
             echo "Current directory contents:"
             ls -al
@@ -61,8 +61,12 @@ jobs:
             echo "Building the project..."
             npm run build || { echo "Build failed"; exit 1; }
 
-            echo "Restarting PM2 processes..."
-            pm2 restart all || { echo "PM2 restart failed"; exit 1; }
+            echo "Restarting PM2 processes gracefully..."
+            if pm2 list | grep -q "ezen-mini-frontend"; then
+              pm2 reload ezen-mini-frontend || { echo "PM2 reload failed"; exit 1; }
+            else
+              pm2 start npm --name "ezen-mini-frontend" -- start || { echo "PM2 start failed"; exit 1; }
+            fi
             pm2 save || { echo "PM2 save failed"; exit 1; }
 
             echo "Deployment completed successfully"
