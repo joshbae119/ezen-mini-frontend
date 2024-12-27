@@ -22,10 +22,23 @@ jobs:
       - name: Check Node.js version
         run: node -v
 
+      - name: Debug Secrets Length
+        run: |
+          if [ -z "${{ secrets.AWS_EZEN_SSH_PRIVATE_KEY }}" ]; then
+            echo "ERROR: Secret AWS_EZEN_SSH_PRIVATE_KEY is empty or not set."
+            exit 1
+          else
+            echo "Secret AWS_EZEN_SSH_PRIVATE_KEY is set and has a non-zero length."
+          fi
+
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.AWS_EZEN_SSH_PRIVATE_KEY }}
+
+      - name: Debug SSH Key Loading
+        run: |
+          ssh-add -L || { echo "No SSH keys added to the agent."; exit 1; }
 
       - name: Add GitHub to known_hosts
         run: |
