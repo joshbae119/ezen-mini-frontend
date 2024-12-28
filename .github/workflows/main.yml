@@ -59,7 +59,7 @@ jobs:
             npm run build  # Next.js 빌드 실행
           EOF
 
-      # 5. EC2에서 애플리케이션 실행
+      # 5. EC2에서 애플리케이션 실행(수정된 내용)
       - name: Deploy Application on EC2
         run: |
           set -e  # 에러 발생 시 즉시 중단
@@ -75,10 +75,11 @@ jobs:
               pm2 start npm --name "ezen-nextjs" -- run start || { echo "Start failed"; exit 1; }
             fi
 
+            # PM2 설정 저장
             pm2 save || { echo "PM2 save failed"; exit 1; }
           EOF
 
-      # Debug PM2 상태 및 로그 확인
+      # 디버그: PM2 상태 및 로그 확인(수정된 내용)
       - name: Debug PM2 Logs
         run: |
           ssh $USER@$HOST << 'EOF'
