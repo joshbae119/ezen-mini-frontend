@@ -7,8 +7,7 @@ on:
 
 jobs:
   deploy:
-    # 기존 ubuntu-latest 대신 self-hosted runner(aws-ec2)를 사용
-    runs-on: [self-hosted, aws-ec2]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
