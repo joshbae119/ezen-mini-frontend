@@ -1,1 +1,81 @@
-test 1
+name: Ezen-SpringBoot CICD V6
+
+on:
+  push:
+    branches: ['main'] # main 브랜치에 코드가 푸시될 때 트리거
+  pull_request:
+    branches: ['main'] # main 브랜치에 대한 PR 생성/업데이트 시 트리거
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+
+    environment: EZEN # GitHub 환경 설정 (Environments에서 'EZEN' 사용)
+
+    env: # 공통 환경 변수 설정
+      HOST: ${{ secrets.EC2_EZEN_SPRING_HOST }}
+      USER: ${{ secrets.EC2_EZEN_SPRING_USER }}
+
+    steps:
+      # 1. 리포지토리 체크아웃 (GitHub Actions용)
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # 2. SSH 키 설정
+      - name: Configure SSH Key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_EZEN_SPRING_KEY }}
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          mkdir -p ~/.ssh  # ~/.ssh 디렉토리 생성 (이미 존재해도 안전)
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+
+      # 3. EC2에서 Git Pull 실행
+      - name: Update Source Code on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST << 'EOF'
+            if [ ! -d /home/ubuntu/ezen-springboot/Board ]; then
+              echo "Directory not found. Cloning repository..."
+              git clone https://github.com/<username>/<repository>.git /home/ubuntu/ezen-springboot/Board
+            else
+              echo "Directory exists. Resetting and pulling latest changes..."
+              cd /home/ubuntu/ezen-springboot/Board
+              git reset --hard HEAD  # 로컬 변경 사항 삭제
+              git pull
+            fi
+
+      # 4. Gradle 빌드 전에 설정 파일 복사
+      - name: Copy application.properties
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST "cp ~/application.properties.backup /home/ubuntu/ezen-springboot/Board/src/main/resources/application.properties"
+
+      # 5. EC2에서 Gradle 빌드 실행
+      - name: Clean Project on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST "
+            cd /home/ubuntu/ezen-springboot/Board
+            chmod +x gradlew  # Gradle Wrapper 실행 권한 추가
+            ./gradlew clean   # Gradle Clean 실행
+            ./gradlew build   # Gradle Build 실행
+          "
+      - name: Build Project on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST "cd /home/ubuntu/ezen-springboot/Board && ./gradlew build"
+
+      # 6. EC2에서 테스트 실행
+      - name: Test on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST "cd /home/ubuntu/ezen-springboot/Board && ./gradlew test"
+
+      # 7. EC2에서 애플리케이션 배포
+      - name: Deploy Application on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST "nohup java -jar /home/ubuntu/ezen-springboot/Board/build/libs/Board-0.0.1-SNAPSHOT.jar > /home/ubuntu/app/app.log 2>&1 &"

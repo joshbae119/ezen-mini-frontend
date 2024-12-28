@@ -1,86 +1,70 @@
-name: EZEN mini Frontend Deploy to AWS
+name: Ezen-NextJS CICD V1
 
 on:
   push:
-    branches:
-      - main
+    branches: ['main'] # main 브랜치에 코드가 푸시될 때 트리거
+  pull_request:
+    branches: ['main'] # main 브랜치에 대한 PR 생성/업데이트 시 트리거
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+
+    environment: EZEN # GitHub 환경 설정 (Environments에서 'EZEN' 사용)
+
+    env: # 공통 환경 변수 설정
+      HOST: ${{ secrets.EC2_EZEN_NEXTJS_HOST }}
+      USER: ${{ secrets.EC2_EZEN_NEXTJS_USER }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      # 1. 리포지토리 체크아웃 (GitHub Actions용)
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 22.12.0
-          cache: 'npm'
-
-      - name: Check Node.js version
-        run: node -v
-
-      - name: Debug Secrets Length
+      # 2. SSH 키 설정
+      - name: Configure SSH Key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_EZEN_NEXTJS_KEY }}
         run: |
-          if [ -z "${{ secrets.AWS_EZEN_SSH_PRIVATE_KEY }}" ]; then
-            echo "ERROR: Secret AWS_EZEN_SSH_PRIVATE_KEY is empty or not set."
-            exit 1
-          else
-            echo "Secret AWS_EZEN_SSH_PRIVATE_KEY is set and has a non-zero length."
-          fi
+          set -e  # 에러 발생 시 즉시 중단
+          mkdir -p ~/.ssh  # ~/.ssh 디렉토리 생성 (이미 존재해도 안전)
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.AWS_EZEN_SSH_PRIVATE_KEY }}
-
-      - name: Debug SSH Key Loading
+      # 3. EC2에서 Git Pull 실행
+      - name: Update Source Code on EC2
         run: |
-          ssh-add -L || { echo "No SSH keys added to the agent."; exit 1; }
-
-      - name: Add GitHub to known_hosts
-        run: |
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Update Git Remote URL
-        run: |
-          git remote set-url origin git@github.com:joshbae119/ezen-mini-frontend.git
-
-      - name: Debug SSH Connection
-        run: |
-          ssh -o "StrictHostKeyChecking=no" -o "BatchMode=yes" ubuntu@3.37.2.236 'echo "SSH connection successful"'
-
-      - name: Deploy to AWS EC2
-        run: |
-          ssh -o StrictHostKeyChecking=no -o "BatchMode=yes" ubuntu@3.37.2.236 << 'EOF'
-            set -e  # 에러 발생 시 즉시 스크립트 중단
-
-            echo "Navigating to project directory..."
-            cd /home/ubuntu/ezen-mini-frontend || { echo "Failed to change directory"; exit 1; }
-
-            echo "Current directory contents:"
-            ls -al
-
-            echo "Updating git remote and pulling latest changes..."
-            git remote set-url origin git@github.com:joshbae119/ezen-mini-frontend.git
-            git fetch origin main || { echo "Git fetch failed"; exit 1; }
-            git reset --hard origin/main || { echo "Git reset failed"; exit 1; }
-
-            echo "Installing dependencies..."
-            npm install || { echo "npm install failed"; exit 1; }
-
-            echo "Building the project..."
-            npm run build || { echo "Build failed"; exit 1; }
-
-            echo "Restarting PM2 processes gracefully..."
-            if pm2 list | grep -q "ezen-mini-frontend"; then
-              pm2 reload ezen-mini-frontend || { echo "PM2 reload failed"; exit 1; }
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST << 'EOF'
+            if [ ! -d /home/ubuntu/ezen-nextjs ]; then
+              echo "Directory not found. Cloning repository..."
+              git clone https://github.com/<username>/<repository>.git /home/ubuntu/ezen-nextjs
             else
-              pm2 start npm --name "ezen-mini-frontend" -- start || { echo "PM2 start failed"; exit 1; }
+              echo "Directory exists. Resetting and pulling latest changes..."
+              cd /home/ubuntu/ezen-nextjs
+              git reset --hard HEAD  # 로컬 변경 사항 삭제
+              git pull
             fi
-            pm2 save || { echo "PM2 save failed"; exit 1; }
+          EOF
 
-            echo "Deployment completed successfully"
+      # 4. EC2에서 의존성 설치 및 Next.js 빌드
+      - name: Install Dependencies and Build on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST << 'EOF'
+            cd /home/ubuntu/ezen-nextjs
+            npm install  # 의존성 설치
+            npm run build  # Next.js 빌드 실행
+          EOF
+
+      # 5. EC2에서 애플리케이션 실행
+      - name: Deploy Application on EC2
+        run: |
+          set -e  # 에러 발생 시 즉시 중단
+          ssh $USER@$HOST << 'EOF'
+            cd /home/ubuntu/ezen-nextjs
+            pm2 stop ezen-nextjs || true  # 기존 애플리케이션 중지 (없어도 무시)
+            pm2 start npm --name "ezen-nextjs" -- run start  # 애플리케이션 시작
+            pm2 save  # PM2 프로세스 저장
           EOF
