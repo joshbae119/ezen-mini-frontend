@@ -37,12 +37,12 @@ jobs:
         run: |
           set -e  # 에러 발생 시 즉시 중단
           ssh $USER@$HOST << 'EOF'
-            if [ ! -d /home/ubuntu/ezen-nextjs ]; then
+            if [ ! -d /home/ubuntu/ezen-mini-frontend ]; then
               echo "Directory not found. Cloning repository..."
-              git clone https://github.com/<username>/<repository>.git /home/ubuntu/ezen-nextjs
+              git clone https://github.com/<username>/<repository>.git /home/ubuntu/ezen-mini-frontend
             else
               echo "Directory exists. Resetting and pulling latest changes..."
-              cd /home/ubuntu/ezen-nextjs
+              cd /home/ubuntu/ezen-mini-frontend
               git reset --hard HEAD  # 로컬 변경 사항 삭제
               git pull
             fi
@@ -53,7 +53,7 @@ jobs:
         run: |
           set -e  # 에러 발생 시 즉시 중단
           ssh $USER@$HOST << 'EOF'
-            cd /home/ubuntu/ezen-nextjs
+            cd /home/ubuntu/ezen-mini-frontend
             npm install  # 의존성 설치
             npm run build  # Next.js 빌드 실행
           EOF
@@ -63,7 +63,7 @@ jobs:
         run: |
           set -e  # 에러 발생 시 즉시 중단
           ssh $USER@$HOST << 'EOF'
-            cd /home/ubuntu/ezen-nextjs
+            cd /home/ubuntu/ezen-mini-frontend
             pm2 stop ezen-nextjs || true  # 기존 애플리케이션 중지 (없어도 무시)
             pm2 start npm --name "ezen-nextjs" -- run start  # 애플리케이션 시작
             pm2 save  # PM2 프로세스 저장
