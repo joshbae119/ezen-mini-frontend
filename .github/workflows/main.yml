@@ -66,15 +66,13 @@ jobs:
           ssh $USER@$HOST << 'EOF'
             cd /home/ubuntu/ezen-mini-frontend
 
-            # PM2 프로세스 상태 확인 및 처리
             if pm2 list | grep -q "ezen-nextjs"; then
-              echo "PM2 process 'ezen-nextjs' is running. Reloading the process..."
-              pm2 reload ezen-nextjs || { echo "PM2 reload failed, attempting restart."; pm2 restart ezen-nextjs; }
+              echo "Reloading PM2 process..."
+              pm2 reload ezen-nextjs --update-env || { echo "Reload failed"; exit 1; }
             else
-              echo "PM2 process 'ezen-nextjs' is not running. Starting a new process..."
-              pm2 start npm --name "ezen-nextjs" -- run start
+              echo "Starting new PM2 process..."
+              pm2 start npm --name "ezen-nextjs" -- run start || { echo "Start failed"; exit 1; }
             fi
 
-            # PM2 프로세스 저장
-            pm2 save || { echo "PM2 save failed."; exit 1; }
+            pm2 save || { echo "PM2 save failed"; exit 1; }
           EOF
