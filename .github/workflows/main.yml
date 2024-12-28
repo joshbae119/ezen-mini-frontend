@@ -26,8 +26,8 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_EZEN_NEXTJS_KEY }}
         run: |
-          set -e  # 에러 발생 시 즉시 중단
-          mkdir -p ~/.ssh  # ~/.ssh 디렉토리 생성 (이미 존재해도 안전)
+          set -e
+          mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
@@ -36,7 +36,7 @@ jobs:
       # 3. EC2에서 Git Pull 실행
       - name: Update Source Code on EC2
         run: |
-          set -e  # 에러 발생 시 즉시 중단
+          set -e
           ssh $USER@$HOST << 'EOF'
             if [ ! -d /home/ubuntu/ezen-mini-frontend ]; then
               echo "Directory not found. Cloning repository..."
@@ -44,7 +44,7 @@ jobs:
             else
               echo "Directory exists. Resetting and pulling latest changes..."
               cd /home/ubuntu/ezen-mini-frontend
-              git reset --hard HEAD  # 로컬 변경 사항 삭제
+              git reset --hard HEAD
               git pull
             fi
           EOF
@@ -52,22 +52,22 @@ jobs:
       # 4. EC2에서 의존성 설치 및 Next.js 빌드
       - name: Install Dependencies and Build on EC2
         run: |
-          set -e  # 에러 발생 시 즉시 중단
+          set -e
           ssh $USER@$HOST << 'EOF'
             cd /home/ubuntu/ezen-mini-frontend
-            npm install  # 의존성 설치
-            npm run build  # Next.js 빌드 실행
+            npm install
+            npm run build
           EOF
 
-      # 5. EC2에서 애플리케이션 실행(수정된 내용)
+      # 5. EC2에서 애플리케이션 실행 (수정 포인트)
       - name: Deploy Application on EC2
         run: |
-          set -e  # 에러 발생 시 즉시 중단
+          set -e
           ssh $USER@$HOST << 'EOF'
             cd /home/ubuntu/ezen-mini-frontend
 
-            # PM2 프로세스 상태 확인 및 처리
-            if pm2 list | grep -q "ezen-nextjs"; then
+            # PM2 프로세스 상태 확인 (정확한 프로세스 존재 여부 확인)
+            if pm2 describe ezen-nextjs > /dev/null; then
               echo "Reloading PM2 process..."
               pm2 reload ezen-nextjs --update-env || { echo "Reload failed"; exit 1; }
             else
@@ -75,11 +75,10 @@ jobs:
               pm2 start npm --name "ezen-nextjs" -- run start || { echo "Start failed"; exit 1; }
             fi
 
-            # PM2 설정 저장
             pm2 save || { echo "PM2 save failed"; exit 1; }
           EOF
 
-      # 디버그: PM2 상태 및 로그 확인(수정된 내용)
+      # 디버그: PM2 상태 및 로그 확인
       - name: Debug PM2 Logs
         run: |
           ssh $USER@$HOST << 'EOF'
