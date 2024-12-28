@@ -2,26 +2,22 @@ name: Ezen-NextJS CICD V1
 
 on:
   push:
-    branches: ['main'] # main 브랜치에 코드가 푸시될 때 트리거
+    branches: ['main']
   pull_request:
-    branches: ['main'] # main 브랜치에 대한 PR 생성/업데이트 시 트리거
+    branches: ['main']
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-24.04
-
-    environment: EZEN # GitHub 환경 설정 (Environments에서 'EZEN' 사용)
-
-    env: # 공통 환경 변수 설정
+    environment: EZEN
+    env:
       HOST: ${{ secrets.EC2_EZEN_NEXTJS_HOST }}
       USER: ${{ secrets.EC2_EZEN_NEXTJS_USER }}
 
     steps:
-      # 1. 리포지토리 체크아웃 (GitHub Actions용)
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # 2. SSH 키 설정
       - name: Configure SSH Key
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_EZEN_NEXTJS_KEY }}
@@ -33,7 +29,6 @@ jobs:
           ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
-      # 3. EC2에서 Git Pull 실행
       - name: Update Source Code on EC2
         run: |
           set -e
@@ -49,7 +44,6 @@ jobs:
             fi
           EOF
 
-      # 4. EC2에서 의존성 설치 및 Next.js 빌드
       - name: Install Dependencies and Build on EC2
         run: |
           set -e
@@ -59,29 +53,30 @@ jobs:
             npm run build
           EOF
 
-      # 5. EC2에서 애플리케이션 실행 (수정 포인트)
+      # [수정] PM2 배포/재시작 로직
       - name: Deploy Application on EC2
         run: |
           set -e
           ssh $USER@$HOST << 'EOF'
             cd /home/ubuntu/ezen-mini-frontend
 
-            # PM2 프로세스 상태 확인 (정확한 프로세스 존재 여부 확인)
+            # 이미 ezen-nextjs 프로세스가 있다면 완전히 중지 후 삭제
             if pm2 describe ezen-nextjs > /dev/null; then
-              echo "Reloading PM2 process..."
-              pm2 reload ezen-nextjs --update-env || { echo "Reload failed"; exit 1; }
-            else
-              echo "PM2 process 'ezen-nextjs' is not running. Starting a new process..."
-              pm2 start npm --name "ezen-nextjs" -- run start || { echo "Start failed"; exit 1; }
+              echo "Stopping existing PM2 process..."
+              pm2 stop ezen-nextjs || true
+              pm2 delete ezen-nextjs || true
             fi
+
+            echo "Starting PM2 process..."
+            pm2 start npm --name "ezen-nextjs" -- run start || { echo "Start failed"; exit 1; }
 
             pm2 save || { echo "PM2 save failed"; exit 1; }
           EOF
 
-      # 디버그: PM2 상태 및 로그 확인
+      # [수정] PM2 상태 및 로그 확인 (타임아웃 대비 --nostream 사용)
       - name: Debug PM2 Logs
         run: |
           ssh $USER@$HOST << 'EOF'
             pm2 list
-            pm2 logs ezen-nextjs || true
+            pm2 logs ezen-nextjs --nostream --lines 100 || true
           EOF
