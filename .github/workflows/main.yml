@@ -53,7 +53,7 @@ jobs:
             npm run build
           EOF
 
-      # [수정] PM2 배포/재시작 로직
+      # PM2 배포/재시작 로직
       - name: Deploy Application on EC2
         run: |
           set -e
@@ -73,7 +73,7 @@ jobs:
             pm2 save || { echo "PM2 save failed"; exit 1; }
           EOF
 
-      # [수정] PM2 상태 및 로그 확인 (타임아웃 대비 --nostream 사용)
+      # PM2 상태 및 로그 확인 (타임아웃 대비 --nostream 사용)
       - name: Debug PM2 Logs
         run: |
           ssh $USER@$HOST << 'EOF'
