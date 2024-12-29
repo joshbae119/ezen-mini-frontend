@@ -1,4 +1,4 @@
-name: Ezen-NextJS CICD V1
+name: Ezen-NextJS CICD V3
 
 on:
   push:
