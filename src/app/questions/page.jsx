@@ -34,13 +34,14 @@ export default function QuestionsPage() {
         HOME
       </button>
       <h1 className='text-3xl font-bold mb-8'>질문게시판</h1>
-
+      {/* // 데이터 랜더링 */}
       <div className='w-full max-w-3xl space-y-4'>
         {Array.isArray(questions) && questions.length > 0 ? (
           questions.map((question) => (
             <div
               key={question.id}
-              className='p-4 border rounded-lg hover:shadow-md transition-shadow'
+              className='p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer'
+              onClick={() => router.push(`/questions/${question.id}`)}
             >
               <h2 className='text-xl font-semibold'>{question.subject}</h2>
               <p className='text-gray-600 mt-2'>{question.content}</p>
