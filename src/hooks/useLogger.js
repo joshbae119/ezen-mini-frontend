@@ -62,43 +62,6 @@ export function useLogger() {
     [addLog]
   );
 
-  // 브라우저 성능 정보 로깅
-  const logPerformance = useCallback(() => {
-    if (window.performance && !browserInfoLogged.current) {
-      const perfData = window.performance.timing;
-      const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-      const dnsTime = perfData.domainLookupEnd - perfData.domainLookupStart;
-      const connectionTime = perfData.connectEnd - perfData.connectStart;
-
-      addLog(
-        `페이지 로드 시간: ${pageLoadTime}ms`,
-        'performance',
-        'Performance'
-      );
-      addLog(`DNS 조회 시간: ${dnsTime}ms`, 'performance', 'Performance');
-      addLog(
-        `서버 연결 시간: ${connectionTime}ms`,
-        'performance',
-        'Performance'
-      );
-    }
-  }, [addLog]);
-
-  // 네트워크 상태 로깅
-  const logNetworkStatus = useCallback(() => {
-    const status = navigator.onLine ? '연결됨' : '끊김';
-    const type = navigator.onLine ? 'success' : 'error';
-    addLog(`네트워크 상태: ${status}`, type, 'Network');
-
-    if (navigator.onLine && navigator.connection) {
-      addLog(
-        `네트워크 정보 - 유형: ${navigator.connection.effectiveType}, 대역폭: ${navigator.connection.downlink}Mbps`,
-        'info',
-        'Network'
-      );
-    }
-  }, [addLog]);
-
   // 서버 상태 체크 함수
   const checkServerStatus = useCallback(async () => {
     if (isChecking) return;
@@ -157,39 +120,6 @@ export function useLogger() {
     }
   }, [isChecking, healthStatus, addLog, logStateChange]);
 
-  // 브라우저 정보 로깅 함수 추가
-  const logBrowserInfo = useCallback(() => {
-    if (!browserInfoLogged.current) {
-      browserInfoLogged.current = true;
-
-      // 브라우저 기본 정보
-      addLog(`브라우저: ${navigator.userAgent}`, 'info', 'Browser');
-      addLog(`플랫폼: ${navigator.platform}`, 'info', 'Browser');
-
-      // 화면 정보
-      addLog(
-        `화면 크기: ${window.screen.width}x${window.screen.height}`,
-        'info',
-        'Browser'
-      );
-
-      // 언어 설정
-      addLog(`언어: ${navigator.language}`, 'info', 'Browser');
-
-      // 쿠키 활성화 여부
-      addLog(
-        `쿠키 활성화: ${navigator.cookieEnabled ? '예' : '아니오'}`,
-        'info',
-        'Browser'
-      );
-
-      // PWA 관련 정보
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        addLog('PWA 모드로 실행 중', 'info', 'Browser');
-      }
-    }
-  }, [addLog]);
-
   // 컴포넌트 라이프사이클 로깅
   useEffect(() => {
     renderCount.current++;
@@ -202,8 +132,6 @@ export function useLogger() {
     if (!initialCheckDone.current) {
       initialCheckDone.current = true;
       addLog('애플리케이션 초기화', 'lifecycle', 'Lifecycle');
-      logBrowserInfo();
-      logNetworkStatus();
       checkServerStatus();
     }
 
@@ -220,7 +148,6 @@ export function useLogger() {
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('load', logPerformance);
 
     const interval = setInterval(checkServerStatus, 5 * 60 * 1000);
 
@@ -230,16 +157,9 @@ export function useLogger() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('load', logPerformance);
       clearInterval(interval);
     };
-  }, [
-    addLog,
-    checkServerStatus,
-    logNetworkStatus,
-    logPerformance,
-    logBrowserInfo,
-  ]);
+  }, [addLog, checkServerStatus]);
 
   return {
     logs,
