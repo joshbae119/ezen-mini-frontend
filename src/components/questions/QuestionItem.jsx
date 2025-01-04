@@ -1,16 +1,22 @@
+import { formatDate } from '@/utils/dateFormat';
+
 export default function QuestionItem({ question, onClick }) {
   return (
     <div
-      className='p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer'
+      className='flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer'
       onClick={onClick}
     >
-      <h2 className='text-xl font-semibold'>{question.subject}</h2>
-      <p className='text-gray-600 mt-2'>{question.content}</p>
-      <div className='text-sm text-gray-500 mt-2'>
-        작성일: {new Date(question.createDate).toLocaleString()}
+      <div className='flex items-center flex-1 min-w-0 mr-4'>
+        <span className='text-sm text-gray-500 mr-2'>{question.id}</span>
+        <h2 className='text-xl font-semibold truncate'>{question.subject}</h2>
       </div>
-      <div className='text-sm text-gray-500'>
-        답변 수: {question.answers?.length || 0}
+      <div className='flex items-center gap-4 whitespace-nowrap'>
+        <div className='text-sm text-gray-500'>
+          답변 수: {question.answers?.length || 0}
+        </div>
+        <div className='text-sm text-gray-500'>
+          작성일: {formatDate(question.createDate)}
+        </div>
       </div>
     </div>
   );

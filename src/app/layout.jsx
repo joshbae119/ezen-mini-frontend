@@ -1,5 +1,5 @@
 import './globals.css';
-import ClientLayout from '../components/ClientLayout';
+import ClientLayout from '@/components/layout/ClientLayout';
 
 export const metadata = {
   title: '이젠A팀',
@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html>
+    <html lang='ko'>
       <body>
         <ClientLayout>{children}</ClientLayout>
       </body>

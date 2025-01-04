@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { questionsApi } from '@/services/api/questions';
+import { ERROR_MESSAGES } from '@/constants/messages';
 
 export function useQuestionDetail(id) {
   const [question, setQuestion] = useState(null);
@@ -13,12 +14,10 @@ export function useQuestionDetail(id) {
         if (response.success) {
           setQuestion(response.data);
         } else {
-          throw new Error('데이터 로드 실패');
+          throw new Error(ERROR_MESSAGES.DATA_LOAD_FAILED);
         }
       } catch (err) {
-        setError(
-          err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.'
-        );
+        setError(err instanceof Error ? err.message : ERROR_MESSAGES.DEFAULT);
       } finally {
         setLoading(false);
       }
