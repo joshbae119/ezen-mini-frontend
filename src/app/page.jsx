@@ -1,6 +1,6 @@
 'use client';
 
-import { useLoggerContext } from '../context/LoggerContext';
+import { useLoggerContext } from '@/context/LoggerContext';
 
 export default function Home() {
   const { addLog } = useLoggerContext();

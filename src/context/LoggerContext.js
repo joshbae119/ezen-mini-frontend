@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import { useLogger } from '../hooks/useLogger';
+import { useLogger } from '@/hooks/useLogger';
 
 const LoggerContext = createContext({
   logs: [], // 기본값 설정

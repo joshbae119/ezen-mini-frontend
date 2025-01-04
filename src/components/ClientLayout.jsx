@@ -1,7 +1,7 @@
 'use client';
 
 import { Logger } from './Logger';
-import { LoggerProvider } from '../context/LoggerContext';
+import { LoggerProvider } from '@/context/LoggerContext';
 
 export default function ClientLayout({ children }) {
   return (
