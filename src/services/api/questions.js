@@ -6,8 +6,13 @@ const api = axios.create({
 });
 
 export const questionsApi = {
-  getAll: async () => {
-    const { data } = await api.get(API_ENDPOINTS.QUESTIONS);
+  getAll: async (page = 1, size = 10) => {
+    const { data } = await api.get(API_ENDPOINTS.QUESTIONS, {
+      params: {
+        page: page - 1,
+        size,
+      },
+    });
     return data;
   },
 

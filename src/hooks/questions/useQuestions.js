@@ -1,17 +1,22 @@
 import { useState, useEffect } from 'react';
 import { questionsApi } from '@/services/api/questions';
 
-export function useQuestions() {
+export function useQuestions(initialPage = 1) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [totalPages, setTotalPages] = useState(0);
+  const pageSize = 10;
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await questionsApi.getAll();
-        if (response.success && response.data?.content) {
+        setLoading(true);
+        const response = await questionsApi.getAll(currentPage, pageSize);
+        if (response.success && response.data) {
           setQuestions(response.data.content);
+          setTotalPages(response.data.totalPages);
         }
       } catch (err) {
         setError(
@@ -23,7 +28,18 @@ export function useQuestions() {
     };
 
     fetchQuestions();
-  }, []);
+  }, [currentPage]);
 
-  return { questions, loading, error };
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  return {
+    questions,
+    loading,
+    error,
+    currentPage,
+    totalPages,
+    goToPage,
+  };
 }

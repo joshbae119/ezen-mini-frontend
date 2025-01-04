@@ -6,10 +6,12 @@ import PageLayout from '@/components/layout/PageLayout';
 import QuestionList from '@/components/questions/QuestionList';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ErrorMessage from '@/components/common/ErrorMessage';
+import Pagination from '@/components/common/Pagination';
 
 export default function QuestionsPage() {
   const router = useRouter();
-  const { questions, loading, error } = useQuestions();
+  const { questions, loading, error, currentPage, totalPages, goToPage } =
+    useQuestions();
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
@@ -23,6 +25,11 @@ export default function QuestionsPage() {
       <QuestionList
         questions={questions}
         onQuestionClick={(id) => router.push(`/questions/${id}`)}
+      />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={goToPage}
       />
     </PageLayout>
   );
