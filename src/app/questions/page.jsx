@@ -37,7 +37,7 @@ export default function QuestionsPage() {
       >
         HOME
       </button>
-      <h1 className='text-3xl font-bold mb-8'>A팀 게시판</h1>
+      <h1 className='text-3xl font-bold mb-8'>질문게시판</h1>
 
       <div className='w-full max-w-3xl space-y-4'>
         {Array.isArray(questions) && questions.length > 0 ? (
