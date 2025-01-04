@@ -1,18 +1,13 @@
 'use client';
 
-import { useLogger } from '@/hooks/useLogger';
-import { useLoggerContext } from '@/context/LoggerContext';
 import { useRouter } from 'next/navigation';
 import { useQuestions } from '@/hooks/useQuestions';
 
 export default function QuestionsPage() {
-  const { addLog } = useLoggerContext();
   const router = useRouter();
-  useLogger('QuestionsPage');
   const { questions, loading, error } = useQuestions();
 
   const handleHomeClick = () => {
-    addLog('홈 페이지로 이동합니다.', 'info', 'Navigation');
     router.push('/');
   };
 
@@ -22,6 +17,7 @@ export default function QuestionsPage() {
         로딩 중...
       </div>
     );
+
   if (error)
     return (
       <div className='flex justify-center items-center min-h-screen text-red-500'>
@@ -33,7 +29,7 @@ export default function QuestionsPage() {
     <div className='flex flex-col items-center min-h-screen p-4'>
       <button
         onClick={handleHomeClick}
-        className='absolute top-4 left-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-gray-700 transition-colors'
+        className='absolute top-4 left-4 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors'
       >
         HOME
       </button>

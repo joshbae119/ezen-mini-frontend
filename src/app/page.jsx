@@ -1,16 +1,11 @@
 'use client';
 
-import { useLoggerContext } from '@/context/LoggerContext';
-import { useLogger } from '@/hooks/useLogger';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const { addLog } = useLoggerContext();
   const router = useRouter();
-  useLogger('HomePage');
 
   const handleClick = () => {
-    addLog('게시판 페이지로 이동합니다.', 'info', 'Navigation');
     router.push('/questions');
   };
 
