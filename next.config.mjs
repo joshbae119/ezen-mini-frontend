@@ -13,6 +13,14 @@ const nextConfig = {
     };
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://3.37.2.236:8080/api/:path*',
+      },
+    ];
+  },
 };
 
 export default nextConfig;

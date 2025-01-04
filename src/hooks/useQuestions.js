@@ -9,7 +9,7 @@ export function useQuestions() {
   useEffect(() => {
     async function fetchQuestions() {
       try {
-        const response = await fetch('http://3.37.2.236:8080/api/v1/questions');
+        const response = await fetch('/api/v1/questions');
 
         if (!response.ok) {
           throw new Error('서버 응답 오류');
