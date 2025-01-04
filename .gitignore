@@ -40,7 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# cursorrule included ㅁㅁㅁ
+# cursorrule included ㅁㅁ
 .cursorrules
 *.cursorrules
 
