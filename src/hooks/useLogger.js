@@ -1,30 +1,84 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export function useLogger() {
   const [logs, setLogs] = useState([]);
+  const [healthStatus, setHealthStatus] = useState(null);
+  const [isChecking, setIsChecking] = useState(false);
+  const initialCheckDone = useRef(false);
 
-  const addLog = (message) => {
+  const addLog = (message, type = 'info') => {
     const timestamp = new Date().toLocaleTimeString();
-    setLogs((prev) => [...prev, { timestamp, message }]);
+    setLogs((prev) => [...prev, { timestamp, message, type }]);
   };
 
-  // 서버 상태 체크 함수
+  const formatBytes = (bytes) => {
+    const mb = bytes / (1024 * 1024);
+    return `${Math.round(mb * 100) / 100} MB`;
+  };
+
   const checkServerStatus = async () => {
-    addLog('페이지 로드됨');
-    addLog('Next.js 서버 연결 확인');
+    if (isChecking) return;
+    setIsChecking(true);
 
     try {
-      await fetch('http://3.37.2.236:8080/health');
-      addLog('백엔드 서버 연결 성공');
+      const response = await fetch('http://3.37.2.236:8080/api/v1/health', {
+        signal: AbortSignal.timeout(5000),
+      });
+
+      if (!response.ok) {
+        throw new Error(`서버 응답 오류 (HTTP ${response.status})`);
+      }
+
+      const data = await response.json();
+      setHealthStatus(data);
+
+      const dbStatus = data.details?.databaseStatus?.status || 'UNKNOWN';
+      const statusMessage = `백엔드서버: ${data.status} | 데이터베이스: ${dbStatus}`;
+
+      let statusType;
+      if (data.status === 'UP' && dbStatus === 'UP') {
+        statusType = 'success';
+      } else if (data.status !== 'UP') {
+        statusType = 'error';
+      } else {
+        statusType = 'warning';
+      }
+
+      addLog(statusMessage, statusType);
     } catch (err) {
-      addLog('백엔드 서버 연결 실패');
+      let errorMessage = '서버 연결 실패';
+
+      if (err.name === 'TimeoutError') {
+        errorMessage = '서버 응답 시간 초과';
+      } else if (err.name === 'AbortError') {
+        errorMessage = '요청이 중단됨';
+      } else if (err instanceof TypeError) {
+        errorMessage = '네트워크 오류';
+      }
+
+      addLog(`${errorMessage}: ${err.message}`, 'error');
+      console.error('Health check error:', err);
+
+      setTimeout(() => {
+        if (!isChecking) {
+          checkServerStatus();
+        }
+      }, 10000);
+    } finally {
+      setIsChecking(false);
     }
   };
 
   useEffect(() => {
-    checkServerStatus();
+    if (!initialCheckDone.current) {
+      initialCheckDone.current = true;
+      checkServerStatus();
+    }
+
+    const interval = setInterval(checkServerStatus, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, []);
 
-  return { logs, addLog };
+  return { logs, addLog, healthStatus };
 }
