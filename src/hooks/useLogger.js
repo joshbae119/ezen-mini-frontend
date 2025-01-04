@@ -12,11 +12,6 @@ export function useLogger() {
     setLogs((prev) => [...prev, { timestamp, message, type }]);
   };
 
-  const formatBytes = (bytes) => {
-    const mb = bytes / (1024 * 1024);
-    return `${Math.round(mb * 100) / 100} MB`;
-  };
-
   const checkServerStatus = async () => {
     if (isChecking) return;
     setIsChecking(true);
@@ -34,7 +29,7 @@ export function useLogger() {
       setHealthStatus(data);
 
       const dbStatus = data.details?.databaseStatus?.status || 'UNKNOWN';
-      const statusMessage = `백엔드서버: ${data.status} | 데이터베이스: ${dbStatus}`;
+      const statusMessage = `서버: ${data.status} | DB: ${dbStatus}`;
 
       let statusType;
       if (data.status === 'UP' && dbStatus === 'UP') {
