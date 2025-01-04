@@ -7,8 +7,8 @@ export default function QuestionItem({ question, onClick }) {
       onClick={onClick}
     >
       <div className='flex items-center flex-1 min-w-0 mr-4'>
-        <span className='text-sm text-gray-500 mr-2'>{question.id}</span>
-        <h2 className='text-xl font-semibold truncate'>{question.subject}</h2>
+        <span className='text-md text-gray-500 mr-2'>{question.id}</span>
+        <h2 className='text-md font-semibold truncate'>{question.subject}</h2>
       </div>
       <div className='flex items-center gap-4 whitespace-nowrap'>
         <div className='text-sm text-gray-500'>
