@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useQuestions } from '@/hooks/useQuestions';
+import { useQuestions } from '@/hooks/questions/useQuestions';
 
 export default function QuestionsPage() {
   const router = useRouter();

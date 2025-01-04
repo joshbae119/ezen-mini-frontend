@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { questionsApi } from '@/services/api/questions';
-import { Question } from '@/types/question';
 
 export function useQuestions() {
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await questionsApi.getAll();
-        if (response.success) {
+        if (response.success && response.data?.content) {
           setQuestions(response.data.content);
         }
       } catch (err) {
