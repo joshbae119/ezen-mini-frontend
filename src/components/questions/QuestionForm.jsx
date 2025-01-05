@@ -9,7 +9,7 @@ export default function QuestionForm({ onSubmit, onCancel }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='w-full max-w-3xl space-y-4'>
+    <form onSubmit={handleSubmit} className='w-full max-w-4xl space-y-4'>
       <div>
         <input
           type='text'

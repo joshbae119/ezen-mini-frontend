@@ -49,7 +49,7 @@ export default function QuestionsPage() {
           onCancel={() => setShowForm(false)}
         />
       ) : (
-        <>
+        <div className='relative'>
           <QuestionList
             questions={questions}
             onQuestionClick={(id) => router.push(`/questions/${id}`)}
@@ -59,13 +59,15 @@ export default function QuestionsPage() {
             totalPages={totalPages}
             onPageChange={goToPage}
           />
-          <button
-            onClick={() => setShowForm(true)}
-            className='fixed bottom-4 left-4 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-lg'
-          >
-            질문등록
-          </button>
-        </>
+          <div className='flex mt-4'>
+            <button
+              onClick={() => setShowForm(true)}
+              className='px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-lg'
+            >
+              질문등록
+            </button>
+          </div>
+        </div>
       )}
     </PageLayout>
   );

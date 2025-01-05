@@ -6,7 +6,7 @@ export default function QuestionList({ questions, onQuestionClick }) {
   }
 
   return (
-    <div className='w-full max-w-3xl space-y-4'>
+    <div className='w-full max-w-4xl space-y-4'>
       <div className='font-bold text-lg bg-gray-100 p-2 rounded'>
         <div className='flex justify-between'>
           <span>번호</span>
