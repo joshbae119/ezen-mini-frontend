@@ -1,10 +1,12 @@
+import { motion } from 'framer-motion';
+
 interface QuestionFormData {
   subject: string;
   content: string;
 }
 
 interface QuestionFormProps {
-  onSubmit: (data: QuestionFormData) => Promise<void>;
+  onSubmit: (data: Partial<Question>) => Promise<void>;
   onCancel: () => void;
   isSubmitting?: boolean;
 }
@@ -24,11 +26,17 @@ export default function QuestionForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className='space-y-4'>
+    <motion.form
+      onSubmit={handleSubmit}
+      className='space-y-6 bg-white rounded-xl shadow-md p-6'
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div>
         <label
           htmlFor='subject'
-          className='block text-sm font-medium text-gray-700'
+          className='block text-base font-medium text-gray-700 mb-2'
         >
           제목
         </label>
@@ -37,14 +45,17 @@ export default function QuestionForm({
           name='subject'
           id='subject'
           required
-          className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500'
+          className='w-full p-3 border border-gray-200 rounded-lg 
+                     focus:ring-2 focus:ring-gray-500 focus:border-transparent 
+                     transition-all duration-300 text-base'
           disabled={isSubmitting}
+          placeholder='제목을 입력하세요'
         />
       </div>
       <div>
         <label
           htmlFor='content'
-          className='block text-sm font-medium text-gray-700'
+          className='block text-base font-medium text-gray-700 mb-2'
         >
           내용
         </label>
@@ -52,27 +63,35 @@ export default function QuestionForm({
           name='content'
           id='content'
           required
-          className='mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 h-32'
+          className='w-full p-4 border border-gray-200 rounded-lg 
+                     focus:ring-2 focus:ring-gray-500 focus:border-transparent 
+                     transition-all duration-300 min-h-[200px] text-base'
           disabled={isSubmitting}
+          placeholder='내용을 입력하세요'
         />
       </div>
-      <div className='flex justify-end gap-2'>
+      <div className='flex justify-end gap-3 pt-4'>
         <button
           type='button'
           onClick={onCancel}
-          className='px-4 py-2 border rounded hover:bg-gray-100'
+          className='px-6 py-2 bg-gray-200 text-gray-700 rounded-xl 
+                     hover:bg-gray-300 transition-all duration-300 
+                     text-sm font-medium'
           disabled={isSubmitting}
         >
           취소
         </button>
         <button
           type='submit'
-          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-blue-300'
+          className='px-6 py-2 bg-gray-500 text-white rounded-xl 
+                     hover:bg-red-800 transform hover:scale-105 
+                     transition-all duration-300 shadow-md 
+                     hover:shadow-lg text-sm font-medium'
           disabled={isSubmitting}
         >
           {isSubmitting ? '등록 중...' : '등록'}
         </button>
       </div>
-    </form>
+    </motion.form>
   );
 }
