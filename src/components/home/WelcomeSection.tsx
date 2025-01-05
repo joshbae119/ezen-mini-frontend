@@ -7,7 +7,7 @@ interface WelcomeSectionProps {
   onBoardClick?: () => void;
 }
 
-const texts = ['EZEN computer GIMPO', 'A조 Mini PROJECT'];
+const texts = ['EZEN Computer', 'A조 Mini Project'];
 
 export default function WelcomeSection({ onBoardClick }: WelcomeSectionProps) {
   return (

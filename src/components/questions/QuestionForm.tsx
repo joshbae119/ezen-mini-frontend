@@ -1,3 +1,4 @@
+import { Question } from '@/types/question';
 import { motion } from 'framer-motion';
 
 interface QuestionFormData {
