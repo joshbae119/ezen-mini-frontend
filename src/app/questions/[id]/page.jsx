@@ -10,7 +10,7 @@ import QuestionDetail from '@/components/questions/QuestionDetail';
 export default function QuestionDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const { question, loading, error } = useQuestionDetail(params.id);
+  const { question, loading, error, refetch } = useQuestionDetail(params.id);
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;
@@ -18,7 +18,7 @@ export default function QuestionDetailPage() {
 
   return (
     <PageLayout onBackClick={() => router.push('/questions')}>
-      <QuestionDetail question={question} />
+      <QuestionDetail question={question} onAnswerAdded={refetch} />
     </PageLayout>
   );
 }
