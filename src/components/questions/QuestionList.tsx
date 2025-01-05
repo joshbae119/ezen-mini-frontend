@@ -32,11 +32,11 @@ export default function QuestionList({
       initial='hidden'
       animate='show'
     >
-      <div className='font-bold text-lg bg-gradient-to-r from-purple-600 to-blue-500 text-white p-4 rounded-xl shadow-lg'>
-        <div className='flex justify-between items-center'>
-          <span>번호</span>
-          <span>제목</span>
-          <span>작성일</span>
+      <div className='font-medium text-lg bg-gray-600 text-white p-4 rounded-xl shadow-lg'>
+        <div className='grid grid-cols-12 gap-4'>
+          <span className='col-span-1 text-gray-100'>번호</span>
+          <span className='col-span-8 text-left text-gray-100'>제목</span>
+          <span className='col-span-3 text-right text-gray-100'>작성일</span>
         </div>
       </div>
       {questions.map((question, index) => (

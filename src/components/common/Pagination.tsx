@@ -24,12 +24,15 @@ export default function Pagination({
     (_, i) => startPage + i
   );
 
+  const buttonClass =
+    'px-3 py-1 rounded-lg bg-gray-500 text-white hover:bg-red-800 transition-all duration-300 text-sm font-medium';
+
   return (
     <div className='flex justify-center items-center gap-2 mt-4'>
       {currentPage > 1 && (
         <button
           onClick={() => onPageChange(currentPage - 1)}
-          className='px-3 py-1 rounded bg-gray-200 hover:bg-gray-300'
+          className={buttonClass}
         >
           이전
         </button>
@@ -37,10 +40,7 @@ export default function Pagination({
 
       {startPage > 1 && (
         <>
-          <button
-            onClick={() => onPageChange(1)}
-            className='px-3 py-1 rounded bg-gray-200 hover:bg-gray-300'
-          >
+          <button onClick={() => onPageChange(1)} className={buttonClass}>
             1
           </button>
           {startPage > 2 && <span className='px-2'>...</span>}
@@ -51,11 +51,12 @@ export default function Pagination({
         <button
           key={page}
           onClick={() => onPageChange(page)}
-          className={`px-3 py-1 rounded ${
-            currentPage === page
-              ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 hover:bg-gray-300'
-          }`}
+          className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-300
+            ${
+              currentPage === page
+                ? 'bg-gray-500 text-white hover:bg-red-800'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
         >
           {page}
         </button>
@@ -66,7 +67,7 @@ export default function Pagination({
           {endPage < totalPages - 1 && <span className='px-2'>...</span>}
           <button
             onClick={() => onPageChange(totalPages)}
-            className='px-3 py-1 rounded bg-gray-200 hover:bg-gray-300'
+            className={buttonClass}
           >
             {totalPages}
           </button>
@@ -76,7 +77,7 @@ export default function Pagination({
       {currentPage < totalPages && (
         <button
           onClick={() => onPageChange(currentPage + 1)}
-          className='px-3 py-1 rounded bg-gray-200 hover:bg-gray-300'
+          className={buttonClass}
         >
           다음
         </button>

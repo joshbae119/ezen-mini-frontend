@@ -68,10 +68,10 @@ export default function QuestionsPage() {
           <div className='flex mt-8 justify-end'>
             <button
               onClick={() => setShowForm(true)}
-              className='px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 
-                         text-white rounded-xl hover:from-purple-700 hover:to-blue-600 
-                         transform hover:scale-105 transition-all duration-300 
-                         shadow-lg hover:shadow-xl font-medium'
+              className='px-6 py-3 bg-gray-800 text-white rounded-xl 
+                         hover:bg-red-800 transform hover:scale-105 
+                         transition-all duration-300 shadow-lg 
+                         hover:shadow-xl font-medium text-sm'
               disabled={isSubmitting}
             >
               질문등록

@@ -14,16 +14,21 @@ export default function PageLayout({
   backButtonText,
 }: PageLayoutProps) {
   return (
-    <div className='flex flex-col items-center min-h-screen'>
-      <div className='w-full max-w-4xl'>
+    <div className='flex flex-col items-center min-h-screen bg-gray-50'>
+      <div className='w-full max-w-3xl'>
         <div className='py-4 px-4 text-center'>
-          {title && <h1 className='text-3xl font-bold'>{title}</h1>}
+          {title && (
+            <h1 className='text-3xl font-bold text-gray-900'>{title}</h1>
+          )}
         </div>
         <div className='flex justify-start px-4 pb-4'>
           {onBackClick && (
             <button
               onClick={onBackClick}
-              className='mt-2 px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors'
+              className='mt-2 px-6 py-2 bg-gray-800 
+                       text-white rounded-xl hover:bg-red-800
+                       transform hover:scale-105 transition-all duration-300 
+                       shadow-md hover:shadow-lg text-sm font-medium'
             >
               {backButtonText || '뒤로가기'}
             </button>
