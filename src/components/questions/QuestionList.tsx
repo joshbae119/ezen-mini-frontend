@@ -1,6 +1,15 @@
+import { Question } from '@/types/question';
 import QuestionItem from './QuestionItem';
 
-export default function QuestionList({ questions, onQuestionClick }) {
+interface QuestionListProps {
+  questions: Question[];
+  onQuestionClick: (id: number) => void;
+}
+
+export default function QuestionList({
+  questions,
+  onQuestionClick,
+}: QuestionListProps) {
   if (!Array.isArray(questions) || questions.length === 0) {
     return <div className='text-center text-gray-500'>게시글이 없습니다.</div>;
   }

@@ -6,11 +6,14 @@ import PageLayout from '@/components/layout/PageLayout';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import QuestionDetail from '@/components/questions/QuestionDetail';
+import { Question } from '@/types/question';
 
 export default function QuestionDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const { question, loading, error, refetch } = useQuestionDetail(params.id);
+  const { question, loading, error, refetch } = useQuestionDetail(
+    params.id as string
+  );
 
   if (loading) return <LoadingSpinner />;
   if (error) return <ErrorMessage message={error} />;

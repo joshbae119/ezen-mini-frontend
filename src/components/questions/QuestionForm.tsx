@@ -1,10 +1,23 @@
-export default function QuestionForm({ onSubmit, onCancel }) {
-  const handleSubmit = (e) => {
+interface QuestionFormData {
+  subject: string;
+  content: string;
+}
+
+interface QuestionFormProps {
+  onSubmit: (data: QuestionFormData) => void;
+  onCancel: () => void;
+}
+
+export default function QuestionForm({
+  onSubmit,
+  onCancel,
+}: QuestionFormProps) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget);
     onSubmit({
-      subject: formData.get('subject'),
-      content: formData.get('content'),
+      subject: formData.get('subject') as string,
+      content: formData.get('content') as string,
     });
   };
 

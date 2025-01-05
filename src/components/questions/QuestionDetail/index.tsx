@@ -1,12 +1,21 @@
 import { useState } from 'react';
-import { formatDate } from '@/utils/dateFormat';
+import { Question, Answer } from '@/types/question';
 import { answersApi } from '@/services/api/answers';
-import AnswerForm from '../AnswerForm';
+import { formatDate } from '@/utils/dateFormat';
+import AnswerForm from '@/components/questions/AnswerForm';
 
-export default function QuestionDetail({ question, onAnswerAdded }) {
+interface QuestionDetailProps {
+  question: Question;
+  onAnswerAdded?: () => Promise<void>;
+}
+
+export default function QuestionDetail({
+  question,
+  onAnswerAdded,
+}: QuestionDetailProps) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
 
-  const handleAnswerSubmit = async (answerData) => {
+  const handleAnswerSubmit = async (answerData: Partial<Answer>) => {
     try {
       await answersApi.create(answerData);
       setShowAnswerForm(false);
@@ -45,8 +54,8 @@ export default function QuestionDetail({ question, onAnswerAdded }) {
         <h2 className='text-xl font-bold mb-4'>답변 목록</h2>
         {question.answers && question.answers.length > 0 ? (
           <div className='space-y-4'>
-            {question.answers.map((answer, index) => (
-              <div key={index} className='p-4 bg-gray-50 rounded-lg'>
+            {question.answers.map((answer) => (
+              <div key={answer.id} className='p-4 bg-gray-50 rounded-lg'>
                 <p className='text-gray-700 mb-2'>{answer.content}</p>
                 <div className='text-sm text-gray-500'>
                   작성일: {formatDate(answer.createDate)}

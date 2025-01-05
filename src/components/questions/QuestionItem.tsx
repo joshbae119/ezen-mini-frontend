@@ -1,6 +1,12 @@
+import { Question } from '@/types/question';
 import { formatDate } from '@/utils/dateFormat';
 
-export default function QuestionItem({ question, onClick }) {
+interface QuestionItemProps {
+  question: Question;
+  onClick: () => void;
+}
+
+export default function QuestionItem({ question, onClick }: QuestionItemProps) {
   return (
     <div
       className='flex items-center justify-between p-4 border rounded-lg hover:shadow-md transition-shadow cursor-pointer'

@@ -10,6 +10,7 @@ import QuestionForm from '@/components/questions/QuestionForm';
 import LoadingSpinner from '@/components/common/LoadingSpinner';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import Pagination from '@/components/common/Pagination';
+import { Question } from '@/types/question';
 
 export default function QuestionsPage() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function QuestionsPage() {
     refetch,
   } = useQuestions();
 
-  const handleSubmit = async (questionData) => {
+  const handleSubmit = async (questionData: Partial<Question>) => {
     try {
       await questionsApi.create(questionData);
       setShowForm(false);
