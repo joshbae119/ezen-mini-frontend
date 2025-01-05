@@ -65,10 +65,13 @@ export default function QuestionsPage() {
             totalPages={totalPages}
             onPageChange={goToPage}
           />
-          <div className='flex mt-4'>
+          <div className='flex mt-8 justify-end'>
             <button
               onClick={() => setShowForm(true)}
-              className='px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-lg'
+              className='px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-500 
+                         text-white rounded-xl hover:from-purple-700 hover:to-blue-600 
+                         transform hover:scale-105 transition-all duration-300 
+                         shadow-lg hover:shadow-xl font-medium'
               disabled={isSubmitting}
             >
               질문등록
