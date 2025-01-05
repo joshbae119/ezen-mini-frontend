@@ -20,4 +20,9 @@ export const questionsApi = {
     const { data } = await api.get(API_ENDPOINTS.QUESTION_DETAIL(id));
     return data;
   },
+
+  create: async (questionData) => {
+    const { data } = await api.post(API_ENDPOINTS.QUESTIONS, questionData);
+    return data;
+  },
 };

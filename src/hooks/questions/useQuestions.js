@@ -9,29 +9,33 @@ export function useQuestions(initialPage = 1) {
   const [totalPages, setTotalPages] = useState(0);
   const pageSize = 10;
 
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      try {
-        setLoading(true);
-        const response = await questionsApi.getAll(currentPage, pageSize);
-        if (response.success && response.data) {
-          setQuestions(response.data.content);
-          setTotalPages(response.data.totalPages);
-        }
-      } catch (err) {
-        setError(
-          err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.'
-        );
-      } finally {
-        setLoading(false);
+  const fetchQuestions = async () => {
+    try {
+      setLoading(true);
+      const response = await questionsApi.getAll(currentPage, pageSize);
+      if (response.success && response.data) {
+        setQuestions(response.data.content);
+        setTotalPages(response.data.totalPages);
       }
-    };
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.'
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchQuestions();
   }, [currentPage]);
 
   const goToPage = (page) => {
     setCurrentPage(page);
+  };
+
+  const refetch = () => {
+    fetchQuestions();
   };
 
   return {
@@ -41,5 +45,6 @@ export function useQuestions(initialPage = 1) {
     currentPage,
     totalPages,
     goToPage,
+    refetch,
   };
 }
