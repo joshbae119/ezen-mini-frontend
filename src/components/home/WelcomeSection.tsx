@@ -15,7 +15,7 @@ export default function WelcomeSection({ onBoardClick }: WelcomeSectionProps) {
       <div className='text-center space-y-4'>
         <MorphingText texts={texts} />
       </div>
-      <PulsatingButton onClick={onBoardClick}>게시판</PulsatingButton>
+      <PulsatingButton onClick={onBoardClick}>게시판 바로가기</PulsatingButton>
     </div>
   );
 }

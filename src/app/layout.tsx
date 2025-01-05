@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import './globals.css';
+import { ReactNode } from 'react';
 import ClientLayout from '@/components/layout/ClientLayout';
 
 export const metadata = {
