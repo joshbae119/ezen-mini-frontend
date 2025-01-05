@@ -7,6 +7,13 @@ export default function QuestionList({ questions, onQuestionClick }) {
 
   return (
     <div className='w-full max-w-3xl space-y-4'>
+      <div className='font-bold text-lg bg-gray-100 p-2 rounded'>
+        <div className='flex justify-between'>
+          <span>번호</span>
+          <span>제목</span>
+          <span>작성일</span>
+        </div>
+      </div>
       {questions.map((question) => (
         <QuestionItem
           key={question.id}
