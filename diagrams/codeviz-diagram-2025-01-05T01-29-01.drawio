@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+      <mxfile host="codeviz.app" modified="2025-01-05T01:29:01.000Z" agent="CodeViz Exporter" version="14.6.5" type="device">
+        <diagram id="codeviz-diagram" name="System Diagram">
+          <mxGraphModel dx="1000" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+            <root>
+              <mxCell id="0"/>
+              <mxCell id="1" parent="0"/>
+              <mxCell id="subGraph1" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="subGraph2">
+                <mxGeometry x="50" y="195" width="380" height="220" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph1_label" value="Custom Hooks" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="subGraph2">
+                <mxGeometry x="58" y="203" width="304" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="subGraph4" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="subGraph5">
+                <mxGeometry x="50" y="425" width="240" height="220" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph4_label" value="Utility Layer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="subGraph5">
+                <mxGeometry x="58" y="433" width="164" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="subGraph3" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="subGraph5">
+                <mxGeometry x="310" y="885" width="260" height="320" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph3_label" value="API Layer" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="subGraph5">
+                <mxGeometry x="318" y="893" width="184" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="subGraph2" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="subGraph5">
+                <mxGeometry x="280" y="425" width="440" height="435" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph2_label" value="Data Management" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="subGraph5">
+                <mxGeometry x="288" y="433" width="364" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="subGraph0" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="subGraph5">
+                <mxGeometry x="70" y="195" width="240" height="220" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph0_label" value="React Components" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="subGraph5">
+                <mxGeometry x="78" y="203" width="164" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="subGraph7" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="1">
+                <mxGeometry x="427" y="1822" width="240" height="220" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph7_label" value="Backend API" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="1">
+                <mxGeometry x="435" y="1830" width="164" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="Infrastructure" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="1">
+                <mxGeometry x="22" y="22" width="240" height="420" as="geometry"/>
+              </mxCell>
+              <mxCell id="Infrastructure_label" value="Infrastructure" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="1">
+                <mxGeometry x="30" y="30" width="164" height="24" as="geometry"/>
+              </mxCell>
+<mxCell id="subGraph5" value="" style="html=1;whiteSpace=wrap;container=1;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;fillOpacity=20;strokeWidth=2;containerType=none;recursiveResize=0;movable=1;resizable=1;autosize=0;dropTarget=0" vertex="1" parent="1">
+                <mxGeometry x="67" y="512" width="777" height="1382" as="geometry"/>
+              </mxCell>
+              <mxCell id="subGraph5_label" value="Frontend Application" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;labelBackgroundColor=white;spacing=5" vertex="1" parent="1">
+                <mxGeometry x="75" y="520" width="701" height="24" as="geometry"/>
+              </mxCell>
+              <mxCell id="User" value="External User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="1">
+                    <mxGeometry x="242" y="332" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="NextJSApp" value="Frontend App&lt;br&gt;(Next.js)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph5">
+                    <mxGeometry x="100" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="EC2" value="EC2 Instance&lt;br&gt;(AWS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="Infrastructure">
+                    <mxGeometry x="40" y="220" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="PM2" value="Process Manager&lt;br&gt;(PM2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="Infrastructure">
+                    <mxGeometry x="40" y="320" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="CICD" value="CI/CD Pipeline&lt;br&gt;(GitHub Actions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="Infrastructure">
+                    <mxGeometry x="40" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="APIEndpoint" value="REST API&lt;br&gt;(v1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph7">
+                    <mxGeometry x="40" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="QuestionComponents" value="Question Components&lt;br&gt;(React)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph0">
+                    <mxGeometry x="40" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="QuestionHooks" value="Question Hooks&lt;br&gt;(React Hooks)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph2">
+                    <mxGeometry x="100" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="APIService" value="API Service&lt;br&gt;(Axios)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph3">
+                    <mxGeometry x="60" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="APIConstants" value="API Constants&lt;br&gt;(JavaScript)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph3">
+                    <mxGeometry x="40" y="220" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="DateUtils" value="Date Formatter&lt;br&gt;(JavaScript)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph4">
+                    <mxGeometry x="40" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="UseQuestions" value="useQuestions Hook&lt;br&gt;(React)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph1">
+                    <mxGeometry x="180" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+<mxCell id="UseQuestionDetail" value="useQuestionDetail Hook&lt;br&gt;(React)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5" vertex="1" parent="subGraph1">
+                    <mxGeometry x="40" y="120" width="120" height="60" as="geometry"/>
+                  </mxCell>
+              <mxCell id="edge-L_User_NextJSApp_0" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="User" target="NextJSApp">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_User_NextJSApp_0_label" value="Accesses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_User_NextJSApp_0">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_NextJSApp_QuestionComponents_1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="NextJSApp" target="QuestionComponents">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_NextJSApp_QuestionComponents_1_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_NextJSApp_QuestionComponents_1">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_QuestionComponents_QuestionHooks_2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="QuestionComponents" target="QuestionHooks">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_QuestionComponents_QuestionHooks_2_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_QuestionComponents_QuestionHooks_2">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_QuestionHooks_UseQuestions_3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="QuestionHooks" target="UseQuestions">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_QuestionHooks_UseQuestions_3_label" value="Contains" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_QuestionHooks_UseQuestions_3">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_QuestionHooks_UseQuestionDetail_4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="QuestionHooks" target="UseQuestionDetail">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_QuestionHooks_UseQuestionDetail_4_label" value="Contains" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_QuestionHooks_UseQuestionDetail_4">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_UseQuestions_APIService_5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="UseQuestions" target="APIService">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_UseQuestions_APIService_5_label" value="Calls" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_UseQuestions_APIService_5">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_UseQuestionDetail_APIService_6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="UseQuestionDetail" target="APIService">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_UseQuestionDetail_APIService_6_label" value="Calls" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_UseQuestionDetail_APIService_6">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_APIService_APIConstants_7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="APIService" target="APIConstants">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_APIService_APIConstants_7_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_APIService_APIConstants_7">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_QuestionComponents_DateUtils_8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="QuestionComponents" target="DateUtils">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_QuestionComponents_DateUtils_8_label" value="Uses" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_QuestionComponents_DateUtils_8">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_CICD_EC2_9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="CICD" target="EC2">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_CICD_EC2_9_label" value="Deploys to" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_CICD_EC2_9">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_EC2_PM2_10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="EC2" target="PM2">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_EC2_PM2_10_label" value="Runs" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_EC2_PM2_10">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_PM2_NextJSApp_11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="PM2" target="NextJSApp">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_PM2_NextJSApp_11_label" value="Manages" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_PM2_NextJSApp_11">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+<mxCell id="edge-L_APIService_APIEndpoint_12" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#808080;strokeWidth=2;jumpStyle=arc;jumpSize=10;spacing=15;labelBackgroundColor=white;labelBorderColor=none" edge="1" parent="1" source="APIService" target="APIEndpoint">
+                  <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="edge-L_APIService_APIEndpoint_12_label" value="Makes HTTP Requests" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="edge-L_APIService_APIEndpoint_12">
+                  <mxGeometry x="-0.2" y="10" relative="1" as="geometry">
+                    <mxPoint as="offset"/>
+                  </mxGeometry>
+                </mxCell>
+            </root>
+          </mxGraphModel>
+        </diagram>
+      </mxfile>
