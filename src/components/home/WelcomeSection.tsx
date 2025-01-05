@@ -7,12 +7,12 @@ interface WelcomeSectionProps {
   onBoardClick?: () => void;
 }
 
-const texts = ['EZEN Computer GIMPO', 'A Team Mini PROJECT'];
+const texts = ['EZEN computer GIMPO', 'A조 Mini PROJECT'];
 
 export default function WelcomeSection({ onBoardClick }: WelcomeSectionProps) {
   return (
-    <div className='flex flex-col items-center justify-center min-h-[50vh]'>
-      <div className='text-center space-y-4'>
+    <div className='flex flex-col items-center justify-center min-h-[50vh] px-8'>
+      <div className='text-center mb-32 w-full'>
         <MorphingText texts={texts} />
       </div>
       <PulsatingButton onClick={onBoardClick}>게시판 바로가기</PulsatingButton>
