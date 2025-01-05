@@ -4,8 +4,8 @@ interface ErrorMessageProps {
 
 export default function ErrorMessage({ message }: ErrorMessageProps) {
   return (
-    <div className='flex justify-center items-center min-h-screen text-red-500'>
-      에러: {message}
+    <div className='flex justify-center items-center min-h-[50vh]'>
+      <div className='text-red-500'>{message}</div>
     </div>
   );
 }

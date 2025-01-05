@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Question, PaginatedResponse } from '@/types/question';
 import { questionsApi } from '@/services/api/questions';
 
@@ -9,7 +9,7 @@ interface UseQuestionsReturn {
   currentPage: number;
   totalPages: number;
   goToPage: (page: number) => void;
-  refetch: () => void;
+  refetch: (goToLast?: boolean) => Promise<void>;
 }
 
 export function useQuestions(initialPage = 1): UseQuestionsReturn {
@@ -20,14 +20,15 @@ export function useQuestions(initialPage = 1): UseQuestionsReturn {
   const [totalPages, setTotalPages] = useState(0);
   const pageSize = 10;
 
-  const fetchQuestions = async () => {
+  const fetchQuestions = useCallback(async (page: number) => {
     try {
       setLoading(true);
-      const response = await questionsApi.getAll(currentPage, pageSize);
+      const response = await questionsApi.getAll(page - 1, pageSize);
       if (response.success && response.data) {
         const paginatedData = response.data as PaginatedResponse<Question>;
         setQuestions(paginatedData.content);
         setTotalPages(paginatedData.totalPages);
+        setCurrentPage(page);
       }
     } catch (err) {
       setError(
@@ -36,11 +37,26 @@ export function useQuestions(initialPage = 1): UseQuestionsReturn {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const refetch = useCallback(
+    async (goToLast = false) => {
+      if (goToLast) {
+        const response = await questionsApi.getAll(0, pageSize);
+        if (response.success && response.data) {
+          const lastPage = response.data.totalPages;
+          await fetchQuestions(lastPage);
+        }
+      } else {
+        await fetchQuestions(currentPage);
+      }
+    },
+    [currentPage, fetchQuestions]
+  );
 
   useEffect(() => {
-    fetchQuestions();
-  }, [currentPage]);
+    fetchQuestions(currentPage);
+  }, [currentPage, fetchQuestions]);
 
   return {
     questions,
@@ -48,7 +64,7 @@ export function useQuestions(initialPage = 1): UseQuestionsReturn {
     error,
     currentPage,
     totalPages,
-    goToPage: setCurrentPage,
-    refetch: fetchQuestions,
+    goToPage: fetchQuestions,
+    refetch,
   };
 }

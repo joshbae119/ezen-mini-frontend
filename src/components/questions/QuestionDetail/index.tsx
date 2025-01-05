@@ -15,9 +15,15 @@ export default function QuestionDetail({
 }: QuestionDetailProps) {
   const [showAnswerForm, setShowAnswerForm] = useState(false);
 
-  const handleAnswerSubmit = async (answerData: Partial<Answer>) => {
+  const handleAnswerSubmit = async (answerData: {
+    content: string;
+    questionId: number;
+  }) => {
     try {
-      await answersApi.create(answerData);
+      await answersApi.create({
+        content: answerData.content,
+        questionId: question.id,
+      });
       setShowAnswerForm(false);
       if (onAnswerAdded) {
         await onAnswerAdded();

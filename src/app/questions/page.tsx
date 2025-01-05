@@ -15,6 +15,7 @@ import { Question } from '@/types/question';
 export default function QuestionsPage() {
   const router = useRouter();
   const [showForm, setShowForm] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const {
     questions,
     loading,
@@ -27,11 +28,14 @@ export default function QuestionsPage() {
 
   const handleSubmit = async (questionData: Partial<Question>) => {
     try {
+      setIsSubmitting(true);
       await questionsApi.create(questionData);
       setShowForm(false);
-      refetch();
+      goToPage(1);
     } catch (error) {
       console.error('질문 등록 실패:', error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -48,6 +52,7 @@ export default function QuestionsPage() {
         <QuestionForm
           onSubmit={handleSubmit}
           onCancel={() => setShowForm(false)}
+          isSubmitting={isSubmitting}
         />
       ) : (
         <div className='relative'>
@@ -64,6 +69,7 @@ export default function QuestionsPage() {
             <button
               onClick={() => setShowForm(true)}
               className='px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 shadow-lg'
+              disabled={isSubmitting}
             >
               질문등록
             </button>

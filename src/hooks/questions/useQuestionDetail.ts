@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Question } from '@/types/question';
 import { questionsApi } from '@/services/api/questions';
 
@@ -16,7 +16,7 @@ export function useQuestionDetail(
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchQuestion = async () => {
+  const fetchQuestion = useCallback(async () => {
     try {
       setLoading(true);
       const response = await questionsApi.getById(Number(id));
@@ -30,11 +30,11 @@ export function useQuestionDetail(
     } finally {
       setLoading(false);
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     fetchQuestion();
-  }, [id]);
+  }, [fetchQuestion]);
 
   return {
     question,
