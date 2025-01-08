@@ -2,7 +2,7 @@
 
 ## 프로젝트 소개
 
-이 프로젝트는 EZEN Computer A조의 미니 프로젝트로, Next.js를 사용하여 개발된 Q&A 게시판입니다.
+이 프로젝트는 EZEN A조의 미니 프로젝트로, Next.js를 사용하여 개발된 Q&A 게시판 프론트엔드입니다.
 
 ## 기술 스택
 
@@ -14,6 +14,13 @@
   - Framer Motion
   - Axios
 
+## API 엔드포인트
+
+- GET /api/v1/questions - 질문 목록 조회
+- GET /api/v1/questions/:id - 질문 상세 조회
+- POST /api/v1/questions - 질문 등록
+- POST /api/v1/answers - 답변 등록
+
 ## 주요 기능
 
 - 질문 게시판 CRUD
@@ -21,77 +28,65 @@
 - 페이지네이션
 - 반응형 디자인
 - 애니메이션 효과
+- 스피너
 
 ## 프로젝트 구조
 
-# 프로젝트 디렉토리 구조
+```mermaid
 
-graph TD
-A[app/questions/page.tsx] --> B[components/questions/QuestionList.tsx]
-A --> C[components/questions/QuestionForm.tsx]
-B --> D[components/questions/QuestionItem.tsx]
+graph LR
+    A[src] --> B[app]
+    A --> C[components]
+    A --> D[constants]
+    A --> E[hooks]
+    A --> F[services]
+    A --> G[types]
+    A --> H[utils]
+    A --> I[globals.css]
 
-    E[app/questions/[id]/page.tsx] --> F[components/questions/QuestionDetail/index.tsx]
-    F --> G[components/questions/AnswerForm.tsx]
+    B --> B1[layout.tsx]
+    B --> B2[page.tsx]
+    B --> B3[questions]
+    B3 --> B31[page.tsx]
+    B3 --> B32[[id]]
+    B32 --> B321[page.tsx]
 
-    H[hooks/questions/useQuestions.ts] --> I[services/api/questions.ts]
-    J[hooks/questions/useQuestionDetail.ts] --> I
+    C --> C1[common]
+    C1 --> C11[ErrorMessage.tsx]
+    C1 --> C12[LoadingSpinner.tsx]
+    C1 --> C13[Pagination.tsx]
+    C --> C2[layout]
+    C2 --> C21[ClientLayout.tsx]
+    C2 --> C22[PageLayout.tsx]
+    C --> C3[home]
+    C3 --> C31[WelcomeSection.tsx]
+    C --> C4[questions]
+    C4 --> C41[AnswerForm.tsx]
+    C4 --> C42[QuestionForm.tsx]
+    C4 --> C43[QuestionItem.tsx]
+    C4 --> C44[QuestionList.tsx]
+    C4 --> C45[QuestionDetail]
+    C45 --> C451[index.tsx]
+    C --> C5[ui]
+    C5 --> C51[morphing-text.tsx]
+    C5 --> C52[pulsating-button.tsx]
 
-    K[types/question.ts] --> I
-    K --> H
-    K --> J
+    D --> D1[api.ts]
+    D --> D2[messages.ts]
 
-src/
-├── app/ # Next.js 앱 라우터
-│ ├── layout.tsx # 루트 레이아웃
-│ ├── page.tsx # 홈페이지
-│ └── questions/ # 질문 관련 페이지
-│ ├── page.tsx # 질문 목록 페이지
-│ └── [id]/ # 동적 라우팅
-│ └── page.tsx # 질문 상세 페이지
-│
-├── components/ # 컴포넌트
-│ ├── common/ # 공통 컴포넌트
-│ │ ├── ErrorMessage.tsx
-│ │ ├── LoadingSpinner.tsx
-│ │ └── Pagination.tsx
-│ ├── layout/ # 레이아웃 컴포넌트
-│ │ ├── ClientLayout.tsx
-│ │ └── PageLayout.tsx
-│ ├── home/ # 홈 관련 컴포넌트
-│ │ └── WelcomeSection.tsx
-│ ├── questions/ # 질문 관련 컴포넌트
-│ │ ├── AnswerForm.tsx
-│ │ ├── QuestionForm.tsx
-│ │ ├── QuestionItem.tsx
-│ │ ├── QuestionList.tsx
-│ │ └── QuestionDetail/
-│ │ └── index.tsx
-│ └── ui/ # UI 컴포넌트
-│ ├── morphing-text.tsx
-│ └── pulsating-button.tsx
-│
-├── constants/ # 상수 정의
-│ ├── api.ts # API 관련 상수
-│ └── messages.ts # 메시지 상수
-│
-├── hooks/ # 커스텀 훅
-│ └── questions/ # 질문 관련 훅
-│ ├── useQuestions.ts
-│ └── useQuestionDetail.ts
-│
-├── services/ # API 서비스
-│ └── api/
-│ └── questions.ts # 질문 API 서비스
-│
-├── types/ # 타입 정의
-│ ├── env.d.ts # 환경변수 타입
-│ └── question.ts # 질문 관련 타입
-│
-└── utils/ # 유틸리티
-└── dateFormat.ts # 날짜 포맷 유틸리티
+    E --> E1[questions]
+    E1 --> E11[useQuestions.ts]
+    E1 --> E12[useQuestionDetail.ts]
 
-## 시작하기
+    F --> F1[api]
+    F1 --> F11[questions.ts]
+
+    G --> G1[env.d.ts]
+    G --> G2[question.ts]
+
+    H --> H1[dateFormat.ts]
+
+```
 
 ### 필수 조건
 
@@ -113,13 +108,6 @@ git clone https://github.com/joshbae119/ezen-mini-frontend.git
 
 - GitHub Actions를 통한 자동 배포
 - AWS EC2 인스턴스에 PM2로 운영
-
-## API 엔드포인트
-
-- GET /api/v1/questions - 질문 목록 조회
-- GET /api/v1/questions/:id - 질문 상세 조회
-- POST /api/v1/questions - 질문 등록
-- POST /api/v1/answers - 답변 등록
 
 ## 환경 변수
 
