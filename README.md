@@ -34,59 +34,55 @@
 ## 프로젝트 구조
 
 ```bash
-
-
-# 프로젝트 프론트 폴더 구조
-
 src/
-├── app/                                # Next.js 앱 라우터
-│   ├── layout.tsx                  # 루트 레이아웃
-│   ├── page.tsx                    # 홈페이지
-│   └── questions/                # 질문 관련 페이지
-│       ├── page.tsx                # 질문 목록 페이지
-│       └── [id]/                        # 동적 라우팅
-│           └── page.tsx            # 질문 상세 페이지
+├── app/                           # Next.js 앱 라우터
+│   ├── layout.tsx                 # 루트 레이아웃
+│   ├── page.tsx                   # 홈페이지
+│   └── questions/                 # 질문 관련 페이지
+│       ├── page.tsx               # 질문 목록 페이지
+│       └── [id]/                  # 동적 라우팅
+│           └── page.tsx           # 질문 상세 페이지
 │
-├── components/                # 컴포넌트
-│   ├── common/                 # 공통 컴포넌트
-│   │   ├── ErrorMessage.tsx
-│   │   ├── LoadingSpinner.tsx
-│   │   └── Pagination.tsx
-│   ├── layout/                      # 레이아웃 컴포넌트
-│   │   ├── ClientLayout.tsx
-│   │   └── PageLayout.tsx
-│   ├── home/                       # 홈 관련 컴포넌트
-│   │   └── WelcomeSection.tsx
-│   ├── questions/               # 질문 관련 컴포넌트
-│   │   ├── AnswerForm.tsx
-│   │   ├── QuestionForm.tsx
-│   │   ├── QuestionItem.tsx
-│   │   ├── QuestionList.tsx
+├── components/                    # 컴포넌트
+│   ├── common/                    # 공통 컴포넌트
+│   │   ├── ErrorMessage.tsx      # 에러 메시지 컴포넌트
+│   │   ├── LoadingSpinner.tsx    # 로딩 스피너 컴포넌트
+│   │   └── Pagination.tsx        # 페이지네이션 컴포넌트
+│   ├── layout/                    # 레이아웃 컴포넌트
+│   │   ├── ClientLayout.tsx      # 클라이언트 레이아웃 컴포넌트
+│   │   └── PageLayout.tsx        # 페이지 레이아웃 컴포넌트
+│   ├── home/                      # 홈 관련 컴포넌트
+│   │   └── WelcomeSection.tsx    # 환영 섹션 컴포넌트
+│   ├── questions/                 # 질문 관련 컴포넌트
+│   │   ├── AnswerForm.tsx        # 답변 폼 컴포넌트
+│   │   ├── QuestionForm.tsx      # 질문 폼 컴포넌트
+│   │   ├── QuestionItem.tsx      # 질문 아이템 컴포넌트
+│   │   ├── QuestionList.tsx      # 질문 목록 컴포넌트
 │   │   └── QuestionDetail/
-│   │       └── index.tsx
-│   └── ui/                              # UI 컴포넌트
-│       ├── morphing-text.tsx
-│       └── pulsating-button.tsx
+│   │       └── index.tsx         # 질문 상세 컴포넌트
+│   └── ui/                        # UI 컴포넌트
+│       ├── morphing-text.tsx     # 변형 텍스트 컴포넌트
+│       └── pulsating-button.tsx  # 펄스 버튼 컴포넌트
 │
-├── constants/                    # 상수 정의
-│   ├── api.ts                         # API 관련 상수
-│   └── messages.ts            # 메시지 상수
+├── constants/                     # 상수 정의
+│   ├── api.ts                    # API 관련 상수
+│   └── messages.ts               # 메시지 상수
 │
-├── hooks/                             # 커스텀 훅
+├── hooks/                        # 커스텀 훅
 │   └── questions/                # 질문 관련 훅
-│       ├── useQuestions.ts
-│       └── useQuestionDetail.ts
+│       ├── useQuestions.ts      # 질문 목록 훅
+│       └── useQuestionDetail.ts # 질문 상세 훅
 │
-├── services/                      # API 서비스
+├── services/                     # API 서비스
 │   └── api/
-│       └── questions.ts            # 질문 API 서비스
+│       └── questions.ts         # 질문 API 서비스
 │
-├── types/                         # 타입 정의
-│   ├── env.d.ts                    # 환경변수 타입
-│   └── question.ts                 # 질문 관련 타입
+├── types/                       # 타입 정의
+│   ├── env.d.ts                # 환경변수 타입
+│   └── question.ts             # 질문 관련 타입
 │
-└── utils/                         # 유틸리티
-└── dateFormat.ts              # 날짜 포맷 유틸리티
+└── utils/                      # 유틸리티
+    └── dateFormat.ts          # 날짜 포맷 유틸리티
 
 
 ```
