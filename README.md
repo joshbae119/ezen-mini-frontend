@@ -13,6 +13,7 @@
   - Tailwind CSS
   - Framer Motion
   - Axios
+  - CICD
 
 ## API 엔드포인트
 
