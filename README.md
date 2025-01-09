@@ -33,6 +33,64 @@
 
 ## 프로젝트 구조
 
+```bash
+
+
+# 프로젝트 프론트 폴더 구조
+
+src/
+├── app/                                # Next.js 앱 라우터
+│   ├── layout.tsx                  # 루트 레이아웃
+│   ├── page.tsx                    # 홈페이지
+│   └── questions/                # 질문 관련 페이지
+│       ├── page.tsx                # 질문 목록 페이지
+│       └── [id]/                        # 동적 라우팅
+│           └── page.tsx            # 질문 상세 페이지
+│
+├── components/                # 컴포넌트
+│   ├── common/                 # 공통 컴포넌트
+│   │   ├── ErrorMessage.tsx
+│   │   ├── LoadingSpinner.tsx
+│   │   └── Pagination.tsx
+│   ├── layout/                      # 레이아웃 컴포넌트
+│   │   ├── ClientLayout.tsx
+│   │   └── PageLayout.tsx
+│   ├── home/                       # 홈 관련 컴포넌트
+│   │   └── WelcomeSection.tsx
+│   ├── questions/               # 질문 관련 컴포넌트
+│   │   ├── AnswerForm.tsx
+│   │   ├── QuestionForm.tsx
+│   │   ├── QuestionItem.tsx
+│   │   ├── QuestionList.tsx
+│   │   └── QuestionDetail/
+│   │       └── index.tsx
+│   └── ui/                              # UI 컴포넌트
+│       ├── morphing-text.tsx
+│       └── pulsating-button.tsx
+│
+├── constants/                    # 상수 정의
+│   ├── api.ts                         # API 관련 상수
+│   └── messages.ts            # 메시지 상수
+│
+├── hooks/                             # 커스텀 훅
+│   └── questions/                # 질문 관련 훅
+│       ├── useQuestions.ts
+│       └── useQuestionDetail.ts
+│
+├── services/                      # API 서비스
+│   └── api/
+│       └── questions.ts            # 질문 API 서비스
+│
+├── types/                         # 타입 정의
+│   ├── env.d.ts                    # 환경변수 타입
+│   └── question.ts                 # 질문 관련 타입
+│
+└── utils/                         # 유틸리티
+└── dateFormat.ts              # 날짜 포맷 유틸리티
+
+
+```
+
 ```mermaid
 
 graph LR
